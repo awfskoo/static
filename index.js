@@ -40,8 +40,9 @@ function serve (root, opts) {
       let done = false
 
       if (ctx.method === 'HEAD' || ctx.method === 'GET') {
+        let path = opts.proxy ? ctx.path.replace(opts.proxy, '') : ctx.path
         try {
-          done = await send(ctx, ctx.path, opts)
+          done = await send(ctx, path, opts)
         } catch (err) {
           if (err.status !== 404) {
             throw err
