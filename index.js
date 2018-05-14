@@ -39,7 +39,7 @@ function serve (root, opts) {
     return async function serve (ctx, next) {
       let done = false
 
-      if (ctx.method === 'HEAD' || ctx.method === 'GET') {
+      if (ctx.method === 'HEAD' || ctx.method === 'GET' && ctx.path != opts.proxy ) {
         let path = opts.proxy ? ctx.path.replace(opts.proxy, '') : ctx.path
         try {
           done = await send(ctx, path, opts)
